@@ -5,7 +5,7 @@ import Login from "./components/auth/login";
 import { ToastProvider } from "./components/providers/toast-provider";
 
 const App = () => {
-  const user = true;
+  const user = false;
 
   return (
     <div className="containerr flex w-[80vw] h-[90vh]">

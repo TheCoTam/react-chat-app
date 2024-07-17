@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "@/schemas";
+
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -9,23 +12,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-  confirmPassword: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-});
+import FormState from "../form-state";
+import { register } from "@/actions/register";
+import { useState } from "react";
 
 const RegisterForm = () => {
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -34,8 +29,16 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (value) => {
-    console.log(value);
+  const onSubmit = async (values) => {
+    const res = await register(values);
+    if (res && "error" in res) {
+      setMessage(res.error);
+      setIsSuccess(false);
+    }
+    if (res && "success" in res) {
+      setMessage(res.success);
+      setIsSuccess(true);
+    }
   };
 
   return (
@@ -102,6 +105,7 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
+          <FormState message={message} isSuccess={isSuccess} />
           <Button>Sign Up</Button>
         </form>
       </Form>
