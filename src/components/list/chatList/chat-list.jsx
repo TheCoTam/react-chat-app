@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import ChatItem from "./chat-item";
+import AddUser from "./addUser/add-user";
 
 const pseudoData = [
   {
@@ -61,6 +62,7 @@ const ChatList = () => {
           />
         ))}
       </div>
+      {addMode && <AddUser />}
     </div>
   );
 };
