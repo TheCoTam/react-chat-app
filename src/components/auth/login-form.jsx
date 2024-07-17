@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,6 +31,7 @@ const LoginForm = () => {
 
   const onSubmit = (value) => {
     console.log(value);
+    toast.error("Some thing went wrong");
   };
 
   return (
