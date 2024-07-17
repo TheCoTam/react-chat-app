@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -9,29 +12,34 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-});
+import { signIn } from "@/actions/sign-in";
+import { loginSchema } from "@/schemas";
+import FormState from "../form-state";
 
 const LoginForm = () => {
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (value) => {
-    console.log(value);
-    toast.error("Some thing went wrong");
+  const onSubmit = async (values) => {
+    setIsLoading(true);
+    const res = await signIn(values);
+    if (res && "error" in res) {
+      setMessage(res.error);
+      setIsSuccess(false);
+    }
+    if (res && "success" in res) {
+      setMessage(res.success);
+      setIsSuccess(true);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -52,6 +60,7 @@ const LoginForm = () => {
                   <Input
                     type="email"
                     placeholder="Example@gmail.com"
+                    disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
@@ -66,13 +75,21 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel className="text-white">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    disabled={isLoading}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button size="sm">Sign In</Button>
+          <FormState message={message} isSuccess={isSuccess} />
+          <Button size="sm" disabled={isLoading}>
+            Sign In
+          </Button>
         </form>
       </Form>
     </div>
