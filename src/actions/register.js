@@ -15,6 +15,7 @@ export const register = async (values) => {
       id: res.user.uid,
       name,
       email,
+      img: "./avatar.png",
       blocked: [],
     });
 

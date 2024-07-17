@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/schemas";
@@ -14,11 +15,11 @@ import {
 } from "@/components/ui/form";
 import FormState from "../form-state";
 import { register } from "@/actions/register";
-import { useState } from "react";
 
 const RegisterForm = () => {
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -30,6 +31,7 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (values) => {
+    setIsLoading(true);
     const res = await register(values);
     if (res && "error" in res) {
       setMessage(res.error);
@@ -39,6 +41,7 @@ const RegisterForm = () => {
       setMessage(res.success);
       setIsSuccess(true);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -56,7 +59,12 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel className="text-white">Name</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="John Doe" {...field} />
+                  <Input
+                    type="text"
+                    placeholder="John Doe"
+                    {...field}
+                    disabled={isLoading}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -72,6 +80,7 @@ const RegisterForm = () => {
                   <Input
                     type="email"
                     placeholder="Example@gmail.com"
+                    disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
@@ -86,7 +95,12 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel className="text-white">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    disabled={isLoading}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,14 +113,19 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel className="text-white">Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    disabled={isLoading}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormState message={message} isSuccess={isSuccess} />
-          <Button>Sign Up</Button>
+          <Button disabled={isLoading}>Sign Up</Button>
         </form>
       </Form>
     </div>
