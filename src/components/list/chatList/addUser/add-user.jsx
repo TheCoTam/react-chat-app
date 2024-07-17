@@ -62,7 +62,12 @@ const AddUser = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type="text" placeholder="Username" {...field} />
+                    <Input
+                      type="text"
+                      placeholder="Username"
+                      {...field}
+                      className="text-black"
+                    />
                   </FormControl>
                 </FormItem>
               )}
