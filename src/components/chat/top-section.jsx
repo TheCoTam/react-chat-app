@@ -1,16 +1,19 @@
-const TopSection = ({ img, name }) => {
+import { useChatStore } from "@/hooks/useChatStore";
+
+const TopSection = () => {
+  const { user } = useChatStore();
   return (
     <div className="flex items-center justify-between p-5 border-b">
       <div className="flex items-center gap-5">
         <img
-          src={img}
+          src={user.img}
           alt="Avatar"
           className="w-[60px] h-[60px] rounded-full object-cover"
         />
         <div className="flex flex-col gap-[5px]">
-          <span className="text-lg font-bold">{name}</span>
+          <span className="text-lg font-bold">{user.name}</span>
           <p className="text-sm font-light text-gray-400">
-            Lorem ipsum dolor, sit amet.
+            Something is here, too.
           </p>
         </div>
       </div>
