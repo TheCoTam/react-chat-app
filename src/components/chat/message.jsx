@@ -1,4 +1,6 @@
-const Message = ({ avt, content, own, img }) => {
+import { calculateTime } from "@/actions/message-time-calculation";
+
+const Message = ({ avt, content, own, img, createdAt }) => {
   return (
     <div className={`flex max-w-[70%] gap-3 ${own ? "self-end" : ""}`}>
       {!own && (
@@ -16,10 +18,14 @@ const Message = ({ avt, content, own, img }) => {
             className="w-full h-[300px] rounded-xl object-cover"
           />
         )}
-        <p className={`p-3 rounded-xl ${own ? "bg-blue-500" : "bg-slate-700"}`}>
+        <p
+          className={`p-3 rounded-xl w-max ${
+            own ? "bg-blue-500" : "bg-slate-700"
+          }`}
+        >
           {content}
         </p>
-        <span className="text-xs">1 min ago</span>
+        <span className="text-[9px]">{calculateTime(createdAt)}</span>
       </div>
     </div>
   );
