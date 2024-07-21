@@ -1,38 +1,9 @@
-import { useState } from "react";
-
 import ChatItem from "./chat-item";
-import AddUser from "./addUser/add-user";
-
-const pseudoData = [
-  {
-    img: "./avatar.png",
-    name: "John Doe",
-    message: "Hello, how are you?",
-  },
-  {
-    img: "./avatar.png",
-    name: "John Doe",
-    message: "Hello, how are you?",
-  },
-  {
-    img: "./avatar.png",
-    name: "John Doe",
-    message: "Hello, how are you?",
-  },
-  {
-    img: "./avatar.png",
-    name: "John Doe",
-    message: "Hello, how are you?",
-  },
-  {
-    img: "./avatar.png",
-    name: "John Doe",
-    message: "Hello, how are you?",
-  },
-];
+import { useChatList } from "@/hooks/useChatList";
+import AddModal from "./add-modal";
 
 const ChatList = () => {
-  const [addMode, setAddMode] = useState(false);
+  const { chats } = useChatList();
 
   return (
     <div className="overflow-auto">
@@ -45,24 +16,21 @@ const ChatList = () => {
             className="w-full bg-transparent border-none outline-none text-white"
           />
         </div>
-        <img
-          src={addMode ? "./minus.png" : "./plus.png"}
-          alt="Plus"
-          className="w-9 h-9 p-[10px] bg-slate-800 rounded-[10px] cursor-pointer"
-          onClick={() => setAddMode((prev) => !prev)}
-        />
+        <AddModal />
       </div>
-      <div>
-        {pseudoData.map((data, index) => (
+      <div className="flex flex-col">
+        {chats.map((data, index) => (
           <ChatItem
             key={index}
-            img={data.img}
-            name={data.name}
-            msg={data.message}
+            id={data.chatId}
+            isSeen={data.isSeen}
+            user={data.user}
+            img={data.user.img}
+            name={data.user.name}
+            msg={data.lastMessage}
           />
         ))}
       </div>
-      {addMode && <AddUser />}
     </div>
   );
 };
