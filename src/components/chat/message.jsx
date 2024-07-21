@@ -19,7 +19,7 @@ const Message = ({ avt, content, own, img, createdAt }) => {
           />
         )}
         <p
-          className={`p-3 rounded-xl w-max ${
+          className={`p-2 rounded-xl max-w-[25vw] break-words w-max ${
             own ? "bg-blue-500" : "bg-slate-700"
           }`}
         >
