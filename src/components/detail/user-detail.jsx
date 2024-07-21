@@ -1,15 +1,14 @@
-const UserDetail = ({ avt, name, description }) => {
+import { useUserStore } from "@/hooks/useUserStore";
+import UserDetailModal from "./user-detail-modal";
+
+const UserDetail = () => {
+  const { currentUser } = useUserStore();
   return (
     <div className="flex flex-col items-center px-6 py-4 gap-4 border-b border-solid">
-      <img
-        src={avt}
-        alt="avatar"
-        className="h-[100px] w-[100px] rounded-full object-cover"
-      />
-      {/* TODO: Add action change avatar  */}
+      <UserDetailModal avt={currentUser.img} />
       <div className="flex flex-col gap-2 items-center">
-        <h2>{name}</h2>
-        <p className="text-xs">{description}</p>
+        <h2>{currentUser.name}</h2>
+        <p className="text-xs">Something is here, too.</p>
       </div>
     </div>
   );
