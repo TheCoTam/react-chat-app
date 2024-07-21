@@ -1,4 +1,4 @@
-import { useUserStore } from "@/lib/useStore";
+import { useUserStore } from "@/hooks/useUserStore";
 
 const UserInfo = () => {
   const { currentUser } = useUserStore();
