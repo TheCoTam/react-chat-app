@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useChatStore } from "@/hooks/useChatStore";
 import { sendMessage } from "@/actions/send-message";
 import { useUserStore } from "@/hooks/useUserStore";
+import { Aperture, ImagePlus, Mic } from "lucide-react";
 
 const BotSection = () => {
   const [open, setOpen] = useState(false);
@@ -32,13 +33,9 @@ const BotSection = () => {
   return (
     <div className="flex gap-5 p-3 items-center justify-between border-t border-solid border-gray-400 mt-auto">
       <div className="flex gap-3">
-        <img src="./img.png" alt="img" className="w-5 h-5 cursor-pointer" />
-        <img
-          src="./camera.png"
-          alt="camera"
-          className="w-5 h-5 cursor-pointer"
-        />
-        <img src="./mic.png" alt="mic" className="w-5 h-5 cursor-pointer" />
+        <ImagePlus />
+        <Aperture />
+        <Mic />
       </div>
       <input
         type="text"

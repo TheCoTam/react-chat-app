@@ -20,7 +20,7 @@ const FileAction = () => {
         <AccordionTrigger>
           <div className="flex space-x-2 items-center">
             <Files />
-            <span>Files</span>
+            <span>Shared Files</span>
           </div>
         </AccordionTrigger>
         <AccordionContent>
@@ -33,7 +33,6 @@ const FileAction = () => {
                 >
                   <File className="w-[18px] h-[18px] shrink-0" />
                   <div className="flex flex-col max-w-[85%]">
-                    {/* TODO: điều chỉnh chiều rộng phù hợp khi tên dài */}
                     <span className="break-words truncate">{item.name}</span>
                     <div className="flex text-[10px] items-center justify-between">
                       <span>{item.createdAt.toDateString()}</span>
