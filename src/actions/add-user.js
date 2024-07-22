@@ -24,6 +24,7 @@ export const addUser = async (id, currentUserId) => {
         chatId: newChatRef.id,
         lastMessage: "",
         receiverId: id,
+        isSeen: true,
         updatedAt: Date.now(),
       }),
     });

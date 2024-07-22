@@ -30,10 +30,10 @@ const ChatItem = ({ id, isSeen, user, img, name, msg }) => {
         alt="Avatar"
         className="w-[50px] h-[50px] rounded-full object-cover"
       />
-      <div className="flex flex-col max-w-[100%] gap-[10px]">
+      <div className="flex flex-col w-[75%] gap-[10px]">
         <span className="font-medium">{name}</span>
         <p
-          className={`text-sm truncate max-w-[70%] ${
+          className={`text-sm truncate w-[95%] ${
             isSeen ? "font-light" : "font-medium"
           }`}
         >

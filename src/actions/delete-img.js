@@ -13,11 +13,9 @@ export const deleteImg = async (imgUrl) => {
 
     const fileRef = ref(storage, decodeURIComponent(filePath));
 
-    if (!fileRef) return;
-
     await deleteObject(fileRef);
   } catch (error) {
     console.log("delete img", error);
-    return { error: "Something went wrong!" };
+    return;
   }
 };

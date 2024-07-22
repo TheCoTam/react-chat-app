@@ -9,7 +9,12 @@ import { File, Files } from "lucide-react";
 const FileAction = () => {
   const files = [
     {
-      name: "file1",
+      name: "file name is quite long and long",
+      createdAt: new Date(),
+      size: "1.2MB",
+    },
+    {
+      name: "file name is short",
       createdAt: new Date(),
       size: "1.2MB",
     },
@@ -32,8 +37,10 @@ const FileAction = () => {
                   className="flex items-center space-x-3 px-1 hover:bg-slate-600 rounded-xl cursor-pointer"
                 >
                   <File className="w-[18px] h-[18px] shrink-0" />
-                  <div className="flex flex-col max-w-[85%]">
-                    <span className="break-words truncate">{item.name}</span>
+                  <div className="flex flex-col w-[80%]">
+                    <span className="w-[85%] break-words truncate">
+                      {item.name}
+                    </span>
                     <div className="flex text-[10px] items-center justify-between">
                       <span>{item.createdAt.toDateString()}</span>
                       <span>{item.size}</span>

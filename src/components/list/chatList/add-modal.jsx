@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { searchUsers } from "@/actions/searchUser";
 import SearchItem from "./search-item";
 import FormState from "@/components/form-state";
+import { useUserStore } from "@/hooks/useUserStore";
 
 const formSchema = z.object({
   username: z.string().min(1),
@@ -26,6 +27,7 @@ const AddModal = () => {
   const [message, setMessage] = useState("");
   const [searchValue, setSearchValue] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const { currentUser } = useUserStore();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,7 +40,7 @@ const AddModal = () => {
     setSearchValue([]);
     setIsSearching(true);
     const username = value.username;
-    const res = await searchUsers(username);
+    const res = await searchUsers(username, currentUser.id);
     if (res && "error" in res) {
       setMessage(res.error);
     } else {
