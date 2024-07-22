@@ -1,5 +1,5 @@
 import UserDetail from "./user-detail";
-import Action from "./action";
+import Action from "./actions/action";
 
 const Detail = () => {
   return (
