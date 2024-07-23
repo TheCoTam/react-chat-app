@@ -1,4 +1,5 @@
 import { useUserStore } from "@/hooks/useUserStore";
+import { Ellipsis, SquareCode, Video } from "lucide-react";
 
 const UserInfo = () => {
   const { currentUser } = useUserStore();
@@ -10,12 +11,12 @@ const UserInfo = () => {
           alt={currentUser.name}
           className="w-[50px] h-[50px] rounded-full object-cover"
         />
-        <h2 className="w-max">{currentUser.name}</h2>
+        <h2 className="w-max font-bold">{currentUser.name}</h2>
       </div>
       <div className="flex gap-5">
-        <img src="./more.png" alt="More" className="w-5 h-5" />
-        <img src="./video.png" alt="Video" className="w-5 h-5" />
-        <img src="./edit.png" alt="Edit" className="w-5 h-5" />
+        <Ellipsis className="cursor-pointer" />
+        <Video className="cursor-pointer" />
+        <SquareCode className="cursor-pointer" />
       </div>
     </div>
   );
