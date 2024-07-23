@@ -5,7 +5,14 @@ import toast from "react-hot-toast";
 import { useChatStore } from "@/hooks/useChatStore";
 import { sendMessage } from "@/actions/send-message";
 import { useUserStore } from "@/hooks/useUserStore";
-import { Aperture, ImagePlus, Mic } from "lucide-react";
+import {
+  Aperture,
+  ImagePlus,
+  Mic,
+  SendHorizonal,
+  SmilePlus,
+  X,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import upload from "@/lib/upload";
@@ -30,13 +37,20 @@ const BotSection = () => {
     }
   };
 
+  const handleDeleteImage = () => {
+    setImg({
+      file: null,
+      url: "",
+    });
+  };
+
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
     setOpen(false);
   };
 
   const handleSend = async () => {
-    if (text === "") return;
+    if (text === "" && img.file === null) return;
     let imgUrl = null;
     setIsPending(true);
 
@@ -63,8 +77,8 @@ const BotSection = () => {
   };
 
   return (
-    <div className="flex gap-5 p-3 justify-between border-t border-solid border-gray-400 mt-auto">
-      <div className="flex gap-3">
+    <div className="flex gap-5 p-3 justify-between border-t border-solid border-gray-400">
+      <div className="flex gap-3 mt-auto pb-3">
         <Label htmlFor="image">
           <ImagePlus className="cursor-pointer" />
         </Label>
@@ -74,7 +88,17 @@ const BotSection = () => {
       </div>
       <div className="flex-1 flex flex-col gap-3 p-3 text-base rounded-[10px] bg-slate-800 text-white">
         {img.url !== "" && (
-          <img src={img.url} alt="image" className="max-w-[50px] rounded-md" />
+          <div className="relative w-max">
+            <img
+              src={img.url}
+              alt="image"
+              className="max-w-[50px] rounded-md"
+            />
+            <X
+              className="absolute right-[2px] top-[2px] w-3 h-3 cursor-pointer bg-white rounded-full text-black"
+              onClick={handleDeleteImage}
+            />
+          </div>
         )}
         <input
           type="text"
@@ -85,24 +109,26 @@ const BotSection = () => {
           onChange={(e) => setText(e.target.value)}
         />
       </div>
-      <div className="relative">
-        <img
-          src="./emoji.png"
-          alt="emoji"
-          className="w-5 h-5 cursor-pointer"
+      <div className="relative mt-auto pb-3">
+        <SmilePlus
+          className="cursor-pointer"
           onClick={() => setOpen((prev) => !prev)}
         />
         <div className="absolute bottom-[50px] left-0">
           <EmojiPicker open={open} onEmojiClick={handleEmoji} />
         </div>
       </div>
-      <button
-        className="bg-blue-600 text-white py-[5px] px-[10px] border-none rounded cursor-pointer"
-        onClick={handleSend}
-        disabled={isPending}
-      >
-        Send
-      </button>
+      <div className="relative mt-auto pb-3">
+        <SendHorizonal
+          className={`${
+            isPending ? "text-gray-400" : "text-blue-600"
+          } cursor-pointer active:text-blue-700`}
+          onClick={handleSend}
+        />
+        {isPending && (
+          <div className="absolute top-0 bottom-0 left-0 right-0"></div>
+        )}
+      </div>
     </div>
   );
 };

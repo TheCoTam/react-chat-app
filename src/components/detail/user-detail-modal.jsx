@@ -71,7 +71,7 @@ const UserDetailModal = ({ avt }) => {
         <img
           src={avt}
           alt="avatar"
-          className="h-[100px] w-[100px] rounded-full object-cover"
+          className="h-[100px] w-[100px] rounded-full object-cover cursor-pointer"
         />
       </DialogTrigger>
       <DialogContent>

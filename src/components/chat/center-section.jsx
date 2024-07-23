@@ -55,6 +55,7 @@ const CenterSection = () => {
         <Message
           key={index}
           avt={message?.user?.img}
+          img={message.img}
           content={message.text}
           own={message.own}
           createdAt={message.createdAt}

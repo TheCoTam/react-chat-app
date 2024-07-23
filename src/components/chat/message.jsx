@@ -18,14 +18,18 @@ const Message = ({ avt, content, own, img, createdAt }) => {
             className="w-full h-[300px] rounded-xl object-cover"
           />
         )}
-        <p
-          className={`p-2 rounded-xl max-w-[25vw] break-words w-max ${
-            own ? "bg-blue-500" : "bg-slate-700"
-          }`}
-        >
-          {content}
-        </p>
-        <span className="text-[9px]">{calculateTime(createdAt)}</span>
+        {content !== "" && (
+          <p
+            className={`p-2 rounded-xl max-w-[25vw] break-words w-max ${
+              own && "ml-auto"
+            } ${own ? "bg-blue-500" : "bg-slate-700"}`}
+          >
+            {content}
+          </p>
+        )}
+        <span className={`text-[9px] ${own && "ml-auto"}`}>
+          {calculateTime(createdAt)}
+        </span>
       </div>
     </div>
   );
