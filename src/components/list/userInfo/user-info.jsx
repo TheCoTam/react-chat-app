@@ -1,5 +1,6 @@
 import { useUserStore } from "@/hooks/useUserStore";
-import { Ellipsis, SquareCode, Video } from "lucide-react";
+import { SquareCode, Video } from "lucide-react";
+import MoreAction from "./more-action";
 
 const UserInfo = () => {
   const { currentUser } = useUserStore();
@@ -14,7 +15,7 @@ const UserInfo = () => {
         <h2 className="w-max font-bold">{currentUser.name}</h2>
       </div>
       <div className="flex gap-5">
-        <Ellipsis className="cursor-pointer" />
+        <MoreAction />
         <Video className="cursor-pointer" />
         <SquareCode className="cursor-pointer" />
       </div>
