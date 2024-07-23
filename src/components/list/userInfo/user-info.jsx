@@ -6,7 +6,7 @@ const UserInfo = () => {
     <div className="p-5 flex items-center justify-between">
       <div className="flex items-center gap-5">
         <img
-          src={currentUser.img}
+          src={currentUser.img || "./avatar.png"}
           alt={currentUser.name}
           className="w-[50px] h-[50px] rounded-full object-cover"
         />

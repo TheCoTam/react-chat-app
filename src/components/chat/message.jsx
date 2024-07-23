@@ -5,7 +5,7 @@ const Message = ({ avt, content, own, img, createdAt }) => {
     <div className={`flex max-w-[70%] gap-3 ${own ? "self-end" : ""}`}>
       {!own && (
         <img
-          src={avt}
+          src={avt || "./avatar.png"}
           alt="avatar"
           className="w-[30px] h-[30px] object-cover rounded-full"
         />

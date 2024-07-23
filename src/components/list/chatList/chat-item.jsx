@@ -5,11 +5,11 @@ import toast from "react-hot-toast";
 import { useUserStore } from "@/hooks/useUserStore";
 
 const ChatItem = ({ id, isSeen, user, img, name, msg }) => {
-  const { chatId, changeChat } = useChatStore();
+  const { changeChat } = useChatStore();
   const { currentUser } = useUserStore();
   const handleClick = async () => {
     if (!isSeen) {
-      const res = await seenMessage(currentUser.id, chatId);
+      const res = await seenMessage(currentUser.id, id);
       if (res && "error" in res) {
         toast.error(res.error);
         return;
@@ -26,7 +26,7 @@ const ChatItem = ({ id, isSeen, user, img, name, msg }) => {
       onClick={handleClick}
     >
       <img
-        src={img}
+        src={img || "./avatar.png"}
         alt="Avatar"
         className="w-[50px] h-[50px] rounded-full object-cover"
       />

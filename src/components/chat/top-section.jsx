@@ -6,7 +6,7 @@ const TopSection = () => {
     <div className="flex items-center justify-between p-5 border-b">
       <div className="flex items-center gap-5">
         <img
-          src={user.img}
+          src={user.img || "./avatar.png"}
           alt="Avatar"
           className="w-[60px] h-[60px] rounded-full object-cover"
         />
