@@ -1,13 +1,20 @@
 import { db } from "@/lib/firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 
-export const sendMessage = async (chatId, currentUserId, userId, text) => {
+export const sendMessage = async (
+  chatId,
+  currentUserId,
+  userId,
+  text,
+  imgUrl
+) => {
   try {
     await updateDoc(doc(db, "chats", chatId), {
       messages: arrayUnion({
         senderId: currentUserId,
         text,
         createdAt: new Date(),
+        ...(imgUrl && { img: imgUrl }),
       }),
     });
 

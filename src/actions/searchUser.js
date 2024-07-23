@@ -35,7 +35,7 @@ export const searchUsers = async (name, currentUserId) => {
 
     const res = newData.filter((item) => !userChatsData.includes(item.id));
 
-    if (res.length === 0) return { error: "No user found" };
+    if (res.length === 0) return { error: "No new user found" };
 
     return res;
   } catch (error) {
